@@ -13061,3 +13061,242 @@ fn bindgen_test_layout_kvm_dirty_gfn() {
         )
     );
 }
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_userspace_memory_region2 {
+    slot: u32,
+    flags: u32,
+    guest_phys_addr: u64,
+    memory_size: u64,
+    userspace_addr: u64,
+    gmem_offset: u64,
+    gmem_fd: u32,
+    pad1: u32,
+    pad2: [u64; 14],
+}
+
+#[test]
+fn bindgen_test_layout_kvm_userspace_memory_region2() {
+    const UNINIT: ::std::mem::MaybeUninit<kvm_userspace_memory_region2> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<kvm_userspace_memory_region2>(),
+        160usize,
+        concat!("Size of: ", stringify!(kvm_userspace_memory_region2))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<kvm_userspace_memory_region2>(),
+        8usize,
+        concat!("Alignment of ", stringify!(kvm_userspace_memory_region2))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).slot) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(slot)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(flags)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).guest_phys_addr) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(guest_phys_addr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).memory_size) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(memory_size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).userspace_addr) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(userspace_addr)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).gmem_offset) as usize - ptr as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(gmem_offset)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).gmem_fd) as usize - ptr as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(gmem_fd)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pad1) as usize - ptr as usize },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(pad1)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).pad2) as usize - ptr as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_userspace_memory_region2),
+            "::",
+            stringify!(pad2)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_memory_attributes {
+    address: u64,
+    size: u64,
+    attributes: u64,
+    flags: u64,
+}
+#[test]
+fn bindgen_test_layout_kvm_memory_attributes() {
+    const UNINIT: ::std::mem::MaybeUninit<kvm_memory_attributes> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<kvm_memory_attributes>(),
+        32usize,
+        concat!("Size of: ", stringify!(kvm_memory_attributes))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<kvm_memory_attributes>(),
+        8usize,
+        concat!("Alignment of ", stringify!(kvm_memory_attributes))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).address) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_memory_attributes),
+            "::",
+            stringify!(address)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_memory_attributes),
+            "::",
+            stringify!(size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).attributes) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_memory_attributes),
+            "::",
+            stringify!(attributes)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_memory_attributes),
+            "::",
+            stringify!(flags)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_create_guest_memfd {
+    size: u64,
+    flags: u64,
+    reserved: [u64; 6],
+}
+#[test]
+fn bindgen_test_layout_kvm_create_guest_memfd() {
+    const UNINIT: ::std::mem::MaybeUninit<kvm_create_guest_memfd> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<kvm_create_guest_memfd>(),
+        64usize,
+        concat!("Size of: ", stringify!(kvm_create_guest_memfd))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<kvm_create_guest_memfd>(),
+        8usize,
+        concat!("Alignment of ", stringify!(kvm_create_guest_memfd))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).size) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_create_guest_memfd),
+            "::",
+            stringify!(size)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_create_guest_memfd),
+            "::",
+            stringify!(flags)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).reserved) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(kvm_create_guest_memfd),
+            "::",
+            stringify!(reserved)
+        )
+    );
+}
+
+
