@@ -13064,15 +13064,15 @@ fn bindgen_test_layout_kvm_dirty_gfn() {
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct kvm_userspace_memory_region2 {
-    slot: u32,
-    flags: u32,
-    guest_phys_addr: u64,
-    memory_size: u64,
-    userspace_addr: u64,
-    gmem_offset: u64,
-    gmem_fd: u32,
-    pad1: u32,
-    pad2: [u64; 14],
+    pub slot: u32,
+    pub flags: u32,
+    pub guest_phys_addr: u64,
+    pub memory_size: u64,
+    pub userspace_addr: u64,
+    pub gmem_offset: u64,
+    pub gmem_fd: u32,
+    pub pad1: u32,
+    pub pad2: [u64; 14],
 }
 
 #[test]
@@ -13184,10 +13184,10 @@ fn bindgen_test_layout_kvm_userspace_memory_region2() {
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct kvm_memory_attributes {
-    address: u64,
-    size: u64,
-    attributes: u64,
-    flags: u64,
+    pub address: u64,
+    pub size: u64,
+    pub attributes: u64,
+    pub flags: u64,
 }
 #[test]
 fn bindgen_test_layout_kvm_memory_attributes() {
@@ -13248,9 +13248,9 @@ fn bindgen_test_layout_kvm_memory_attributes() {
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct kvm_create_guest_memfd {
-    size: u64,
-    flags: u64,
-    reserved: [u64; 6],
+    pub size: u64,
+    pub flags: u64,
+    pub reserved: [u64; 6],
 }
 #[test]
 fn bindgen_test_layout_kvm_create_guest_memfd() {
