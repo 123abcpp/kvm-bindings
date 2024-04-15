@@ -5707,6 +5707,39 @@ impl Default for kvm_xen_exit {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct kvm_user_vmgexit{
+    pub type_: __u32,
+    pub u: kvm_user_vmgexit__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union kvm_user_vmgexit__bindgen_ty_1{
+    pub psc_msr: kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_1,
+    pub psc: kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_2,
+    pub ext_guest_req: kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_3,
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_1 {
+    pub gpa: __u64,
+    pub op: __u8,
+    pub ret: __u32,
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_2 {
+    pub shared_gpa: __u64,
+    pub ret: __u64,
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_3 {
+    pub data_gpa: __u64,
+    pub data_npages: __u64,
+    pub ret: __u32,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct kvm_run {
     pub request_interrupt_window: __u8,
     pub immediate_exit: __u8,
@@ -5749,6 +5782,7 @@ pub union kvm_run__bindgen_ty_1 {
     pub arm_nisv: kvm_run__bindgen_ty_1__bindgen_ty_20,
     pub msr: kvm_run__bindgen_ty_1__bindgen_ty_21,
     pub xen: kvm_xen_exit,
+    pub vmgexit: kvm_user_vmgexit,
     pub padding: [::std::os::raw::c_char; 256usize],
 }
 #[repr(C)]
