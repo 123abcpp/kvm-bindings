@@ -329,6 +329,7 @@ pub const KVM_EXIT_DIRTY_RING_FULL: u32 = 31;
 pub const KVM_EXIT_AP_RESET_HOLD: u32 = 32;
 pub const KVM_EXIT_X86_BUS_LOCK: u32 = 33;
 pub const KVM_EXIT_XEN: u32 = 34;
+pub const KVM_EXIT_VMGEXIT: u32 = 40;
 pub const KVM_INTERNAL_ERROR_EMULATION: u32 = 1;
 pub const KVM_INTERNAL_ERROR_SIMUL_EX: u32 = 2;
 pub const KVM_INTERNAL_ERROR_DELIVERY_EV: u32 = 3;
