@@ -600,6 +600,7 @@ pub const KVM_CAP_SET_GUEST_DEBUG2: u32 = 195;
 pub const KVM_CAP_SGX_ATTRIBUTE: u32 = 196;
 pub const KVM_CAP_VM_COPY_ENC_CONTEXT_FROM: u32 = 197;
 pub const KVM_CAP_PTP_KVM: u32 = 198;
+pub const KVM_CAP_VM_TYPES: u32 = 206;
 pub const KVM_IRQ_ROUTING_IRQCHIP: u32 = 1;
 pub const KVM_IRQ_ROUTING_MSI: u32 = 2;
 pub const KVM_IRQ_ROUTING_S390_ADAPTER: u32 = 3;
