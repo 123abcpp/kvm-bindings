@@ -330,6 +330,7 @@ pub const KVM_EXIT_AP_RESET_HOLD: u32 = 32;
 pub const KVM_EXIT_X86_BUS_LOCK: u32 = 33;
 pub const KVM_EXIT_XEN: u32 = 34;
 pub const KVM_EXIT_VMGEXIT: u32 = 40;
+pub const KVM_EXIT_TDX: u32 = 50;
 pub const KVM_INTERNAL_ERROR_EMULATION: u32 = 1;
 pub const KVM_INTERNAL_ERROR_SIMUL_EX: u32 = 2;
 pub const KVM_INTERNAL_ERROR_DELIVERY_EV: u32 = 3;
@@ -13335,4 +13336,70 @@ fn bindgen_test_layout_kvm_create_guest_memfd() {
     );
 }
 
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct KvmTdxExit {
+    pub type_: u32,
+    pub pad: u32,
+    pub u: KvmTdxExitUnion,
+}
 
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union KvmTdxExitUnion {
+    pub vmcall: KvmTdxVmcall,
+}
+
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct KvmTdxVmcall {
+    // RAX(bit 0), RCX(bit 1) and RSP(bit 4) are reserved.
+    // RAX(bit 0): TDG.VP.VMCALL status code.
+    // RCX(bit 1): bitmap for used registers.
+    // RSP(bit 4): the caller stack.
+    pub reg_mask: u64,  // union of __u64 in_rcx and __u64 reg_mask
+
+    // Input parameters: guest -> VMM
+    pub type_: u64,  // union of __u64 in_r10 and __u64 type
+    pub subfunction: u64,  // union of __u64 in_r11 and __u64 subfunction
+    pub in_r12: u64,
+    pub in_r13: u64,
+    pub in_r14: u64,
+    pub in_r15: u64,
+    pub in_rbx: u64,
+    pub in_rdi: u64,
+    pub in_rsi: u64,
+    pub in_r8: u64,
+    pub in_r9: u64,
+    pub in_rdx: u64,
+
+    // Output parameters: VMM -> guest
+    pub status_code: u64,  // union of __u64 out_r10 and __u64 status_code
+    pub out_r11: u64,
+    pub out_r12: u64,
+    pub out_r13: u64,
+    pub out_r14: u64,
+    pub out_r15: u64,
+    pub out_rbx: u64,
+    pub out_rdi: u64,
+    pub out_rsi: u64,
+    pub out_r8: u64,
+    pub out_r9: u64,
+    pub out_rdx: u64,
+}
+
+// Constants for TDX_VMCALL_REG_MASK_*
+pub const TDX_VMCALL_REG_MASK_RBX: u64 = 1 << 2;
+pub const TDX_VMCALL_REG_MASK_RDX: u64 = 1 << 3;
+pub const TDX_VMCALL_REG_MASK_RSI: u64 = 1 << 6;
+pub const TDX_VMCALL_REG_MASK_RDI: u64 = 1 << 7;
+pub const TDX_VMCALL_REG_MASK_R8: u64 = 1 << 8;
+pub const TDX_VMCALL_REG_MASK_R9: u64 = 1 << 9;
+pub const TDX_VMCALL_REG_MASK_R10: u64 = 1 << 10;
+pub const TDX_VMCALL_REG_MASK_R11: u64 = 1 << 11;
+pub const TDX_VMCALL_REG_MASK_R12: u64 = 1 << 12;
+pub const TDX_VMCALL_REG_MASK_R13: u64 = 1 << 13;
+pub const TDX_VMCALL_REG_MASK_R14: u64 = 1 << 14;
+pub const TDX_VMCALL_REG_MASK_R15: u64 = 1 << 15;
+
+pub const KVM_EXIT_TDX_VMCALL: u32 = 1;
