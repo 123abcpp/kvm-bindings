@@ -331,6 +331,7 @@ pub const KVM_EXIT_X86_BUS_LOCK: u32 = 33;
 pub const KVM_EXIT_XEN: u32 = 34;
 pub const KVM_EXIT_VMGEXIT: u32 = 40;
 pub const KVM_EXIT_TDX: u32 = 50;
+pub const KVM_EXIT_MEMORY_FAULT: u32 = 100;
 pub const KVM_INTERNAL_ERROR_EMULATION: u32 = 1;
 pub const KVM_INTERNAL_ERROR_SIMUL_EX: u32 = 2;
 pub const KVM_INTERNAL_ERROR_DELIVERY_EV: u32 = 3;
@@ -5709,13 +5710,13 @@ impl Default for kvm_xen_exit {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct kvm_user_vmgexit{
+pub struct kvm_user_vmgexit {
     pub type_: __u32,
     pub u: kvm_user_vmgexit__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub union kvm_user_vmgexit__bindgen_ty_1{
+pub union kvm_user_vmgexit__bindgen_ty_1 {
     pub psc_msr: kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_1,
     pub psc: kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_2,
     pub ext_guest_req: kvm_user_vmgexit__bindgen_ty_1__bindgen_ty_3,
@@ -5785,6 +5786,8 @@ pub union kvm_run__bindgen_ty_1 {
     pub msr: kvm_run__bindgen_ty_1__bindgen_ty_21,
     pub xen: kvm_xen_exit,
     pub vmgexit: kvm_user_vmgexit,
+    pub tdx_exit: KvmTdxExit,
+    pub memory: kvm_exit_memory_fault,
     pub padding: [::std::os::raw::c_char; 256usize],
 }
 #[repr(C)]
@@ -13357,11 +13360,11 @@ pub struct KvmTdxVmcall {
     // RAX(bit 0): TDG.VP.VMCALL status code.
     // RCX(bit 1): bitmap for used registers.
     // RSP(bit 4): the caller stack.
-    pub reg_mask: u64,  // union of __u64 in_rcx and __u64 reg_mask
+    pub reg_mask: u64, // union of __u64 in_rcx and __u64 reg_mask
 
     // Input parameters: guest -> VMM
-    pub type_: u64,  // union of __u64 in_r10 and __u64 type
-    pub subfunction: u64,  // union of __u64 in_r11 and __u64 subfunction
+    pub type_: u64,       // union of __u64 in_r10 and __u64 type
+    pub subfunction: u64, // union of __u64 in_r11 and __u64 subfunction
     pub in_r12: u64,
     pub in_r13: u64,
     pub in_r14: u64,
@@ -13374,7 +13377,7 @@ pub struct KvmTdxVmcall {
     pub in_rdx: u64,
 
     // Output parameters: VMM -> guest
-    pub status_code: u64,  // union of __u64 out_r10 and __u64 status_code
+    pub status_code: u64, // union of __u64 out_r10 and __u64 status_code
     pub out_r11: u64,
     pub out_r12: u64,
     pub out_r13: u64,
@@ -13403,3 +13406,13 @@ pub const TDX_VMCALL_REG_MASK_R14: u64 = 1 << 14;
 pub const TDX_VMCALL_REG_MASK_R15: u64 = 1 << 15;
 
 pub const KVM_EXIT_TDX_VMCALL: u32 = 1;
+
+pub const KVM_MEMORY_EXIT_FLAG_PRIVATE: u64 = 1 << 3;
+
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_exit_memory_fault {
+    pub flags: u64,
+    pub gpa: u64,
+    pub size: u64,
+}
