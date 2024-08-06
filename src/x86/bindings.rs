@@ -13340,6 +13340,15 @@ fn bindgen_test_layout_kvm_create_guest_memfd() {
 }
 
 #[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_memory_mapping {
+    pub base_gf: u64,
+	pub nr_pages: u64,
+	pub flags: u64,
+	pub source: u64,
+}
+
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct KvmTdxExit {
     pub type_: u32,
