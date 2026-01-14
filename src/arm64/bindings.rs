@@ -400,6 +400,7 @@ pub const KVM_EXIT_DIRTY_RING_FULL: u32 = 31;
 pub const KVM_EXIT_AP_RESET_HOLD: u32 = 32;
 pub const KVM_EXIT_X86_BUS_LOCK: u32 = 33;
 pub const KVM_EXIT_XEN: u32 = 34;
+pub const KVM_EXIT_MEMORY_FAULT: u32 = 39;
 pub const KVM_INTERNAL_ERROR_EMULATION: u32 = 1;
 pub const KVM_INTERNAL_ERROR_SIMUL_EX: u32 = 2;
 pub const KVM_INTERNAL_ERROR_DELIVERY_EV: u32 = 3;
@@ -3101,6 +3102,7 @@ pub union kvm_run__bindgen_ty_1 {
     pub arm_nisv: kvm_run__bindgen_ty_1__bindgen_ty_20,
     pub msr: kvm_run__bindgen_ty_1__bindgen_ty_21,
     pub xen: kvm_xen_exit,
+    pub memory: kvm_exit_memory_fault,
     pub padding: [::std::os::raw::c_char; 256usize],
 }
 #[repr(C)]
@@ -10052,6 +10054,7 @@ fn bindgen_test_layout_kvm_assigned_msix_nr() {
         )
     );
 }
+
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct kvm_assigned_msix_entry {
@@ -10183,6 +10186,17 @@ pub struct kvm_dirty_gfn {
     pub slot: __u32,
     pub offset: __u64,
 }
+
+pub const KVM_MEMORY_EXIT_FLAG_PRIVATE: u64 = 1 << 3;
+
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct kvm_exit_memory_fault {
+    pub flags: u64,
+    pub gpa: u64,
+    pub size: u64,
+}
+
 #[test]
 fn bindgen_test_layout_kvm_dirty_gfn() {
     assert_eq!(
